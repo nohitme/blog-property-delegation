@@ -1,0 +1,39 @@
+# .gitignore for Android projects with settings preserved
+
+# APK files
+*.apk
+*.ap_
+
+# Dalvik VM files
+*.dex
+
+# Java class files
+*.class
+
+# Auto generated files
+bin/
+gen/
+
+# Gradle files
+build/
+.gradle/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
+.DS_Store
+
+# Eclipse project files
+# .classpath
+# .project
+# .settings
+
+# Android Studio
+.idea/
+gradle.xml
+*.iws
+*.iml

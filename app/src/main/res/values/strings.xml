@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">\"By\" Property Delegation</string>
+    <string name="app_launch_count">App Launch Count: %1$d</string>
+</resources>
