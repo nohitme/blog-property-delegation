@@ -1,21 +1,22 @@
 package info.ericlin.delegation
 
 import android.app.Activity
-import android.content.res.Resources
+import android.app.Fragment
 import android.os.Bundle
+import android.support.annotation.DimenRes
+import android.support.annotation.IdRes
 import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
+import android.view.View
 import android.widget.TextView
 import javax.inject.Inject
-import kotlin.properties.ReadOnlyProperty
-import kotlin.reflect.KProperty
 
 class DelegateActivity : AppCompatActivity() {
 
     @Inject lateinit var preferencesManager: PreferencesManager
 
-    private lateinit var textView: TextView
-    private var textSize: Float = 0f
+    private val textView by bindView<TextView>(R.id.main_text)
+    private val textSize by bindDimension(R.dimen.font_size)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,13 +24,15 @@ class DelegateActivity : AppCompatActivity() {
 
         (application as DelegateApplication).appComponent.inject(this)
 
-        textSize = resources.getDimension(R.dimen.font_size)
-
-        textView = findViewById(R.id.main_text)
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         textView.text = getString(R.string.app_launch_count, preferencesManager.launchCount)
     }
 }
+
+fun Activity.bindDimension(@DimenRes id: Int) = lazy { resources.getDimension(id) }
+
+fun <T : View> Activity.bindView(@IdRes id: Int) = lazy(LazyThreadSafetyMode.NONE) { findViewById<T>(id) }
+fun <T : View> Fragment.bindView(@IdRes id: Int) = lazy(LazyThreadSafetyMode.NONE) { view!!.findViewById<T>(id) }
 
 //class Abitrary {
 //
